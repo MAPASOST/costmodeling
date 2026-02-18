@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Afterschool Program Cost Estimator</title>
+  <link rel="stylesheet" href="css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="40" height="40" rx="10" fill="#2563EB"/>
+            <path d="M10 28L20 12L30 28H10Z" fill="white" opacity="0.9"/>
+            <circle cx="20" cy="20" r="4" fill="white"/>
+          </svg>
+        </div>
+        <div>
+          <span class="brand-name">CostModel</span>
+          <span class="brand-tagline">Afterschool Program Estimator</span>
+        </div>
+      </div>
+      <nav class="header-nav">
+        <button class="nav-btn active" data-tab="estimator">Estimator</button>
+        <button class="nav-btn" data-tab="breakdown">Cost Breakdown</button>
+        <button class="nav-btn" data-tab="methodology">Methodology</button>
+      </nav>
+      <button class="btn-export" id="exportBtn" onclick="exportPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export PDF
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- TAB: ESTIMATOR -->
+    <div id="tab-estimator" class="tab-content active">
+      <div class="page-hero">
+        <div class="hero-text">
+          <h1>Afterschool Program<br/>Cost Estimator</h1>
+          <p>Enter your program variables below to generate a comprehensive cost estimate. All figures update in real time.</p>
+        </div>
+        <div class="hero-summary" id="heroSummary">
+          <div class="summary-card">
+            <span class="summary-label">Total Annual Cost</span>
+            <span class="summary-value" id="summaryTotal">$0</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-card">
+            <span class="summary-label">Cost Per Student</span>
+            <span class="summary-value" id="summaryCPS">$0</span>
+          </div>
+          <div class="summary-divider"></div>
+          <div class="summary-card">
+            <span class="summary-label">Cost Per Participant Hour</span>
+            <span class="summary-value" id="summaryCPH">$0</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="estimator-layout">
+        <!-- LEFT COLUMN: FORM SECTIONS -->
+        <div class="form-column">
+
+          <!-- PROGRAM DETAILS -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-blue">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+              </div>
+              <h2>Program Details</h2>
+            </div>
+            <div class="form-grid">
+              <div class="form-group span-2">
+                <label for="programName">Program Name</label>
+                <input type="text" id="programName" placeholder="e.g. Springfield After School Academy" />
+              </div>
+              <div class="form-group">
+                <label for="programType">Program Type</label>
+                <select id="programType">
+                  <option value="afterschool">Afterschool Only</option>
+                  <option value="beforeschool">Before School Only</option>
+                  <option value="both">Before &amp; After School</option>
+                  <option value="summer">Summer Program</option>
+                  <option value="yearround">Year-Round</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="settingType">Program Setting</label>
+                <select id="settingType">
+                  <option value="school">School-Based</option>
+                  <option value="community">Community-Based</option>
+                  <option value="hybrid">Hybrid</option>
+                </select>
+              </div>
+            </div>
+          </section>
+
+          <!-- ENROLLMENT & SCHEDULE -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-teal">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <h2>Enrollment &amp; Schedule</h2>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="studentsEnrolled">Students Enrolled</label>
+                <div class="input-with-unit">
+                  <input type="number" id="studentsEnrolled" value="75" min="1" max="2000" />
+                  <span class="unit">students</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="avgDailyAttendance">
+                  Avg. Daily Attendance
+                  <span class="tooltip" data-tip="Typically 80–95% of enrollment">?</span>
+                </label>
+                <div class="input-with-unit">
+                  <input type="number" id="avgDailyAttendance" value="60" min="1" max="2000" />
+                  <span class="unit">students/day</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="hoursPerDay">Hours of Operation / Day</label>
+                <div class="input-with-unit">
+                  <input type="number" id="hoursPerDay" value="3" min="0.5" max="16" step="0.5" />
+                  <span class="unit">hrs/day</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="daysPerWeek">Operating Days / Week</label>
+                <div class="input-with-unit">
+                  <input type="number" id="daysPerWeek" value="5" min="1" max="7" />
+                  <span class="unit">days/week</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="weeksPerYear">Operating Weeks / Year</label>
+                <div class="input-with-unit">
+                  <input type="number" id="weeksPerYear" value="36" min="1" max="52" />
+                  <span class="unit">weeks/year</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="operatingDays">
+                  Total Operating Days
+                  <span class="tooltip" data-tip="Auto-calculated from days × weeks">?</span>
+                </label>
+                <div class="input-with-unit computed">
+                  <input type="number" id="operatingDays" readonly />
+                  <span class="unit">days/year</span>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- STAFFING -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-purple">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              </div>
+              <h2>Staffing</h2>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="numDirectors">Site Directors / Coordinators</label>
+                <div class="input-with-unit">
+                  <input type="number" id="numDirectors" value="1" min="0" max="20" />
+                  <span class="unit">FTE</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="directorSalary">Director Annual Salary</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="directorSalary" value="55000" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="numStaff">Program Staff / Instructors</label>
+                <div class="input-with-unit">
+                  <input type="number" id="numStaff" value="4" min="0" max="200" />
+                  <span class="unit">staff</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="staffHourlyWage">
+                  Avg. Staff Hourly Wage
+                  <span class="tooltip" data-tip="Average hourly wage for program staff and instructors">?</span>
+                </label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="staffHourlyWage" value="18" min="0" step="0.25" />
+                  <span class="unit">/hr</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="staffHoursPerDay">Paid Hours / Staff / Day
+                  <span class="tooltip" data-tip="Include setup/breakdown time beyond program hours">?</span>
+                </label>
+                <div class="input-with-unit">
+                  <input type="number" id="staffHoursPerDay" value="4" min="0" max="16" step="0.5" />
+                  <span class="unit">hrs/day</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="benefitsRate">Benefits Rate
+                  <span class="tooltip" data-tip="Employer-paid benefits as % of wages (FICA, health, retirement). Typically 20–30%">?</span>
+                </label>
+                <div class="input-with-unit">
+                  <input type="number" id="benefitsRate" value="25" min="0" max="100" step="0.5" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+            </div>
+            <div class="subsection-cost">
+              <span>Estimated Staffing Cost:</span>
+              <strong id="staffCostDisplay">$0</strong>
+            </div>
+          </section>
+
+          <!-- FACILITY -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-orange">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+              </div>
+              <h2>Facility &amp; Space</h2>
+            </div>
+            <div class="toggle-row">
+              <span>Space is school-based (in-kind / free)</span>
+              <label class="toggle">
+                <input type="checkbox" id="facilityFree" />
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="form-grid" id="facilityGrid">
+              <div class="form-group">
+                <label for="monthlyRent">Monthly Space Cost (Rent/Lease)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="monthlyRent" value="1200" min="0" />
+                  <span class="unit">/month</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="monthlyUtilities">Monthly Utilities</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="monthlyUtilities" value="300" min="0" />
+                  <span class="unit">/month</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="custodialMonthly">Custodial / Maintenance (monthly)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="custodialMonthly" value="200" min="0" />
+                  <span class="unit">/month</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="facilityMonths">Months of Facility Use</label>
+                <div class="input-with-unit">
+                  <input type="number" id="facilityMonths" value="10" min="1" max="12" />
+                  <span class="unit">months</span>
+                </div>
+              </div>
+            </div>
+            <div class="subsection-cost">
+              <span>Estimated Facility Cost:</span>
+              <strong id="facilityCostDisplay">$0</strong>
+            </div>
+          </section>
+
+          <!-- PROGRAMMING -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-green">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              </div>
+              <h2>Programming &amp; Curriculum</h2>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="materialsPerStudent">Curriculum Materials / Student / Year</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="materialsPerStudent" value="150" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="activitiesPerStudent">Field Trips &amp; Activities / Student / Year</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="activitiesPerStudent" value="75" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="techAnnual">Technology &amp; Equipment (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="techAnnual" value="2000" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="professionalDev">Professional Development (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="professionalDev" value="1500" min="0" />
+                </div>
+              </div>
+            </div>
+            <div class="subsection-cost">
+              <span>Estimated Programming Cost:</span>
+              <strong id="programCostDisplay">$0</strong>
+            </div>
+          </section>
+
+          <!-- NUTRITION -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-red">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              </div>
+              <h2>Nutrition</h2>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="snackCostPerDay">Snack Cost / Student / Day</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="snackCostPerDay" value="1.50" min="0" step="0.05" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>
+                  Provide Full Meals?
+                </label>
+                <div class="toggle-row compact">
+                  <label class="toggle">
+                    <input type="checkbox" id="provideMeals" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <span id="mealToggleLabel">No</span>
+                </div>
+              </div>
+              <div class="form-group" id="mealCostGroup" style="opacity:0.4;pointer-events:none">
+                <label for="mealCostPerDay">Meal Cost / Student / Day</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="mealCostPerDay" value="4.00" min="0" step="0.05" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="nutritionReimbursement">CACFP / Grant Reimbursement (annual)
+                  <span class="tooltip" data-tip="Child and Adult Care Food Program reimbursements or other nutrition grants">?</span>
+                </label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="nutritionReimbursement" value="0" min="0" />
+                </div>
+              </div>
+            </div>
+            <div class="subsection-cost">
+              <span>Estimated Nutrition Cost (net):</span>
+              <strong id="nutritionCostDisplay">$0</strong>
+            </div>
+          </section>
+
+          <!-- OPERATIONS & OVERHEAD -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-slate">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
+              </div>
+              <h2>Operations &amp; Overhead</h2>
+            </div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="adminOverheadRate">Administrative Overhead Rate
+                  <span class="tooltip" data-tip="% applied to direct program costs for admin, fiscal management, HR. Typically 10–20%">?</span>
+                </label>
+                <div class="input-with-unit">
+                  <input type="number" id="adminOverheadRate" value="15" min="0" max="100" step="0.5" />
+                  <span class="unit">%</span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="insuranceAnnual">Insurance (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="insuranceAnnual" value="3500" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Transportation Provided?</label>
+                <div class="toggle-row compact">
+                  <label class="toggle">
+                    <input type="checkbox" id="provideTransport" />
+                    <span class="toggle-slider"></span>
+                  </label>
+                  <span id="transportToggleLabel">No</span>
+                </div>
+              </div>
+              <div class="form-group" id="transportCostGroup" style="opacity:0.4;pointer-events:none">
+                <label for="transportAnnual">Transportation Cost (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="transportAnnual" value="8000" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="marketingAnnual">Marketing &amp; Outreach (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="marketingAnnual" value="500" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="evaluationAnnual">Evaluation &amp; Assessment (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="evaluationAnnual" value="0" min="0" />
+                </div>
+              </div>
+            </div>
+            <div class="subsection-cost">
+              <span>Estimated Operations Cost:</span>
+              <strong id="operationsCostDisplay">$0</strong>
+            </div>
+          </section>
+
+          <!-- REVENUE & OFFSETS -->
+          <section class="form-section">
+            <div class="section-header">
+              <div class="section-icon icon-emerald">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              </div>
+              <h2>Revenue &amp; Funding Offsets</h2>
+            </div>
+            <p class="section-note">Enter known revenue sources to calculate net program cost and funding gap.</p>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="grantRevenue">Grants &amp; Public Funding (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="grantRevenue" value="0" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="feeRevenue">Family Fees / Tuition (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="feeRevenue" value="0" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="donationRevenue">Donations &amp; Fundraising (annual)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="donationRevenue" value="0" min="0" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inKindValue">In-Kind Contributions (annual value)</label>
+                <div class="input-with-unit prefix">
+                  <span class="prefix-symbol">$</span>
+                  <input type="number" id="inKindValue" value="0" min="0" />
+                </div>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- RIGHT COLUMN: LIVE SUMMARY -->
+        <aside class="summary-column" id="summaryPanel">
+          <div class="summary-sticky">
+
+            <div class="summary-block">
+              <h3>Cost Summary</h3>
+              <div class="cost-line-list" id="costLineList">
+                <div class="cost-line">
+                  <span>Staffing</span>
+                  <span id="sl-staffing">$0</span>
+                </div>
+                <div class="cost-line">
+                  <span>Facility</span>
+                  <span id="sl-facility">$0</span>
+                </div>
+                <div class="cost-line">
+                  <span>Programming</span>
+                  <span id="sl-programming">$0</span>
+                </div>
+                <div class="cost-line">
+                  <span>Nutrition</span>
+                  <span id="sl-nutrition">$0</span>
+                </div>
+                <div class="cost-line">
+                  <span>Operations &amp; Overhead</span>
+                  <span id="sl-operations">$0</span>
+                </div>
+                <div class="cost-line cost-line-total">
+                  <span>Total Annual Cost</span>
+                  <span id="sl-total">$0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="summary-block revenue-block">
+              <h3>Revenue Offsets</h3>
+              <div class="cost-line-list">
+                <div class="cost-line">
+                  <span>Grants &amp; Public Funding</span>
+                  <span id="sl-grants">$0</span>
+                </div>
+                <div class="cost-line">
+                  <span>Family Fees</span>
+                  <span id="sl-fees">$0</span>
+                </div>
+                <div class="cost-line">
+                  <span>Donations</span>
+                  <span id="sl-donations">$0</span>
+                </div>
+                <div class="cost-line">
+                  <span>In-Kind</span>
+                  <span id="sl-inkind">$0</span>
+                </div>
+                <div class="cost-line cost-line-total revenue-total">
+                  <span>Total Revenue</span>
+                  <span id="sl-revenue-total">$0</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="funding-gap-box" id="fundingGapBox">
+              <div class="gap-label">Net Funding Gap</div>
+              <div class="gap-value" id="fundingGap">$0</div>
+              <div class="gap-note" id="fundingGapNote">Enter revenue sources above to see your gap</div>
+            </div>
+
+            <div class="summary-block metrics-block">
+              <h3>Key Metrics</h3>
+              <div class="metric-list">
+                <div class="metric-item">
+                  <span class="metric-label">Cost per Enrolled Student</span>
+                  <span class="metric-value" id="m-cpe">—</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Cost per ADA Student</span>
+                  <span class="metric-value" id="m-cada">—</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Cost per Participant Hour</span>
+                  <span class="metric-value" id="m-cph">—</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Staff-to-Student Ratio</span>
+                  <span class="metric-value" id="m-ratio">—</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Annual Participant Hours</span>
+                  <span class="metric-value" id="m-hours">—</span>
+                </div>
+                <div class="metric-item">
+                  <span class="metric-label">Monthly Operating Cost</span>
+                  <span class="metric-value" id="m-monthly">—</span>
+                </div>
+              </div>
+            </div>
+
+            <button class="btn-view-breakdown" onclick="switchTab('breakdown')">
+              View Full Cost Breakdown &rarr;
+            </button>
+
+          </div>
+        </aside>
+
+      </div>
+    </div>
+
+    <!-- TAB: COST BREAKDOWN -->
+    <div id="tab-breakdown" class="tab-content">
+      <div class="page-hero slim">
+        <div class="hero-text">
+          <h1>Cost Breakdown</h1>
+          <p>Visual analysis of your program cost distribution and year-over-year projections.</p>
+        </div>
+      </div>
+
+      <div class="breakdown-layout">
+
+        <div class="chart-card">
+          <h3>Cost Distribution by Category</h3>
+          <div class="chart-wrapper">
+            <canvas id="pieChart"></canvas>
+          </div>
+          <div class="chart-legend" id="pieLegend"></div>
+        </div>
+
+        <div class="chart-card">
+          <h3>Cost Per Student vs. Benchmarks</h3>
+          <div class="chart-wrapper bar-wrapper">
+            <canvas id="barChart"></canvas>
+          </div>
+          <p class="chart-note">Benchmark ranges reflect NIOST and Afterschool Alliance reported averages for comparable programs.</p>
+        </div>
+
+        <div class="breakdown-table-card">
+          <h3>Detailed Cost Breakdown</h3>
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Annual Cost</th>
+                <th>% of Total</th>
+                <th>Per Student</th>
+                <th>Per Day</th>
+              </tr>
+            </thead>
+            <tbody id="breakdownTableBody"></tbody>
+            <tfoot>
+              <tr class="table-total">
+                <td>Total Program Cost</td>
+                <td id="tbl-total">$0</td>
+                <td>100%</td>
+                <td id="tbl-cps">$0</td>
+                <td id="tbl-cpd">$0</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div class="chart-card">
+          <h3>3-Year Cost Projection</h3>
+          <div class="projection-controls">
+            <label>Annual Cost Increase: <strong id="inflationLabel">3%</strong></label>
+            <input type="range" id="inflationRate" min="0" max="15" step="0.5" value="3" />
+            <label>Annual Enrollment Growth: <strong id="growthLabel">5%</strong></label>
+            <input type="range" id="enrollmentGrowth" min="-5" max="20" step="0.5" value="5" />
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="projectionChart"></canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- TAB: METHODOLOGY -->
+    <div id="tab-methodology" class="tab-content">
+      <div class="page-hero slim">
+        <div class="hero-text">
+          <h1>Cost Modeling Methodology</h1>
+          <p>How this estimator calculates costs — the formulas, assumptions, and frameworks behind the numbers.</p>
+        </div>
+      </div>
+
+      <div class="methodology-layout">
+
+        <nav class="method-nav">
+          <a href="#overview" class="method-nav-link active">Overview</a>
+          <a href="#staffing-method" class="method-nav-link">Staffing</a>
+          <a href="#facility-method" class="method-nav-link">Facility</a>
+          <a href="#programming-method" class="method-nav-link">Programming</a>
+          <a href="#nutrition-method" class="method-nav-link">Nutrition</a>
+          <a href="#overhead-method" class="method-nav-link">Overhead</a>
+          <a href="#metrics-method" class="method-nav-link">Key Metrics</a>
+          <a href="#benchmarks" class="method-nav-link">Benchmarks</a>
+          <a href="#references" class="method-nav-link">References</a>
+        </nav>
+
+        <div class="method-content">
+
+          <section id="overview" class="method-section">
+            <h2>Overview</h2>
+            <p>This cost estimator uses an <strong>activity-based costing (ABC)</strong> approach adapted for nonprofit and publicly funded afterschool programs. Costs are organized into five direct-cost categories and one indirect-cost category:</p>
+            <div class="cost-category-grid">
+              <div class="cat-card cat-blue">
+                <strong>Staffing</strong>
+                <span>Directors + Program Staff + Benefits</span>
+              </div>
+              <div class="cat-card cat-orange">
+                <strong>Facility</strong>
+                <span>Rent + Utilities + Custodial</span>
+              </div>
+              <div class="cat-card cat-green">
+                <strong>Programming</strong>
+                <span>Materials + Activities + Tech + PD</span>
+              </div>
+              <div class="cat-card cat-red">
+                <strong>Nutrition</strong>
+                <span>Snacks + Meals − Reimbursements</span>
+              </div>
+              <div class="cat-card cat-slate">
+                <strong>Operations</strong>
+                <span>Admin Overhead + Insurance + Transport</span>
+              </div>
+            </div>
+            <div class="formula-box highlight">
+              <div class="formula-label">Total Annual Program Cost</div>
+              <div class="formula">
+                <code>Total = Staffing + Facility + Programming + Nutrition + Operations</code>
+              </div>
+            </div>
+          </section>
+
+          <section id="staffing-method" class="method-section">
+            <h2>Staffing Cost Formula</h2>
+            <p>Staffing is typically the largest cost category, often representing 60–80% of total program costs. This model separates salaried leadership from hourly program staff.</p>
+
+            <div class="formula-box">
+              <div class="formula-label">Director/Coordinator Cost</div>
+              <div class="formula">
+                <code>Director Cost = (# Directors) × (Annual Salary) × (1 + Benefits Rate)</code>
+              </div>
+            </div>
+
+            <div class="formula-box">
+              <div class="formula-label">Program Staff Cost</div>
+              <div class="formula">
+                <code>Staff Cost = (# Staff) × (Hourly Wage) × (Paid Hours/Day) × (Days/Week) × (Weeks/Year) × (1 + Benefits Rate)</code>
+              </div>
+            </div>
+
+            <div class="formula-box highlight">
+              <div class="formula-label">Total Staffing Cost</div>
+              <div class="formula">
+                <code>Staffing = Director Cost + Staff Cost</code>
+              </div>
+            </div>
+
+            <div class="assumption-box">
+              <h4>Key Assumptions</h4>
+              <ul>
+                <li><strong>Benefits Rate</strong> covers employer-paid FICA (7.65%), health insurance, retirement contributions, and unemployment insurance. The national average for nonprofits is approximately 22–28%.</li>
+                <li><strong>Paid hours per day</strong> should include setup and breakdown time beyond program hours (typically +30–60 minutes).</li>
+                <li>Directors are modeled as <strong>full-time equivalent (FTE)</strong> salaried employees; fractional FTE can be entered (e.g., 0.5 for half-time).</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="facility-method" class="method-section">
+            <h2>Facility Cost Formula</h2>
+            <p>Facility costs include rent or space-use fees, utilities, and custodial services. School-based programs may receive space in-kind, which should be documented as both a cost and in-kind contribution for grant reporting purposes.</p>
+
+            <div class="formula-box highlight">
+              <div class="formula-label">Annual Facility Cost</div>
+              <div class="formula">
+                <code>Facility = (Monthly Rent + Monthly Utilities + Monthly Custodial) × Months of Operation</code>
+              </div>
+            </div>
+
+            <div class="assumption-box">
+              <h4>Key Assumptions</h4>
+              <ul>
+                <li>Months of operation may differ from staffing weeks if facility costs are paid year-round.</li>
+                <li>In-kind space contributions should be valued at fair market rate and reported separately, even if cost to program is $0.</li>
+                <li>For shared facilities, prorate costs based on <strong>hours of use ÷ total building hours</strong>.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="programming-method" class="method-section">
+            <h2>Programming Cost Formula</h2>
+            <p>Programming costs are the direct costs of delivering educational and enrichment content to students.</p>
+
+            <div class="formula-box highlight">
+              <div class="formula-label">Annual Programming Cost</div>
+              <div class="formula">
+                <code>Programming = (Materials/Student + Activities/Student) × Students Enrolled + Technology + Professional Development</code>
+              </div>
+            </div>
+
+            <div class="assumption-box">
+              <h4>Key Assumptions</h4>
+              <ul>
+                <li>Per-student costs for materials and activities are multiplied by <strong>enrolled students</strong>, not ADA, since these are typically purchased at the start of the year.</li>
+                <li>Technology and professional development are modeled as fixed annual costs.</li>
+                <li>Professional development includes training, conferences, and certification costs for all staff.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="nutrition-method" class="method-section">
+            <h2>Nutrition Cost Formula</h2>
+            <p>Nutrition costs are calculated based on average daily attendance (ADA) rather than enrollment, since food is purchased daily.</p>
+
+            <div class="formula-box">
+              <div class="formula-label">Gross Nutrition Cost</div>
+              <div class="formula">
+                <code>Gross Nutrition = (Snack Cost + Meal Cost*) × ADA × Operating Days</code>
+                <small>*Meal cost applied only if meals are provided</small>
+              </div>
+            </div>
+
+            <div class="formula-box highlight">
+              <div class="formula-label">Net Nutrition Cost</div>
+              <div class="formula">
+                <code>Net Nutrition = Gross Nutrition − CACFP Reimbursement</code>
+              </div>
+            </div>
+
+            <div class="assumption-box">
+              <h4>Key Assumptions</h4>
+              <ul>
+                <li>The <strong>Child and Adult Care Food Program (CACFP)</strong> provides federal reimbursements for qualifying meals and snacks. Programs should apply if serving income-eligible students.</li>
+                <li>CACFP reimbursement rates (FY2025): ~$0.13–$0.32/snack and ~$3.48–$4.15/meal depending on tier and income eligibility.</li>
+                <li>Net negative nutrition costs (reimbursements exceed costs) are capped at $0 in the total.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="overhead-method" class="method-section">
+            <h2>Operations &amp; Overhead Formula</h2>
+            <p>Administrative overhead accounts for the indirect costs of running the program — fiscal management, human resources, IT, and organizational support.</p>
+
+            <div class="formula-box">
+              <div class="formula-label">Administrative Overhead</div>
+              <div class="formula">
+                <code>Admin Overhead = (Staffing + Facility + Programming + Nutrition) × Overhead Rate</code>
+              </div>
+            </div>
+
+            <div class="formula-box highlight">
+              <div class="formula-label">Total Operations Cost</div>
+              <div class="formula">
+                <code>Operations = Admin Overhead + Insurance + Transportation + Marketing + Evaluation</code>
+              </div>
+            </div>
+
+            <div class="assumption-box">
+              <h4>Key Assumptions</h4>
+              <ul>
+                <li>The <strong>overhead rate</strong> represents the percentage of direct costs allocated to administrative functions. Funders often cap this at 10–20%.</li>
+                <li>Insurance includes general liability, professional liability, and accident coverage for participants.</li>
+                <li>Transportation costs should reflect actual contracted routes or per-trip costs, not just vehicle ownership.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section id="metrics-method" class="method-section">
+            <h2>Key Metrics Explained</h2>
+            <div class="metrics-explain-grid">
+
+              <div class="metric-explain-card">
+                <h4>Cost Per Enrolled Student (CPE)</h4>
+                <div class="formula-box compact">
+                  <code>CPE = Total Annual Cost ÷ Students Enrolled</code>
+                </div>
+                <p>Used for budgeting and fee-setting. Reflects the average cost to serve one slot in the program regardless of attendance.</p>
+              </div>
+
+              <div class="metric-explain-card">
+                <h4>Cost Per ADA Student</h4>
+                <div class="formula-box compact">
+                  <code>Cost/ADA = Total Annual Cost ÷ Average Daily Attendance</code>
+                </div>
+                <p>A higher-fidelity measure of per-student cost that accounts for actual attendance patterns. Used in state and federal reporting.</p>
+              </div>
+
+              <div class="metric-explain-card">
+                <h4>Cost Per Participant Hour (CPH)</h4>
+                <div class="formula-box compact">
+                  <code>CPH = Total Annual Cost ÷ (ADA × Hours/Day × Operating Days)</code>
+                </div>
+                <p>The most granular cost metric. Allows comparison across programs with different schedules. Often used by funders to assess efficiency.</p>
+              </div>
+
+              <div class="metric-explain-card">
+                <h4>Staff-to-Student Ratio</h4>
+                <div class="formula-box compact">
+                  <code>Ratio = ADA ÷ (# Directors + # Staff)</code>
+                </div>
+                <p>Regulatory minimum ratios vary by state and age group. Best practice is 1:10–15 for elementary and 1:12–18 for middle/high school.</p>
+              </div>
+
+            </div>
+          </section>
+
+          <section id="benchmarks" class="method-section">
+            <h2>National Benchmarks</h2>
+            <p>Use these ranges to contextualize your program's costs against national data from the <strong>National Institute on Out-of-School Time (NIOST)</strong>, <strong>Afterschool Alliance</strong>, and <strong>Harvard Family Research Project</strong>.</p>
+
+            <table class="benchmark-table">
+              <thead>
+                <tr>
+                  <th>Metric</th>
+                  <th>Low Range</th>
+                  <th>Typical Range</th>
+                  <th>High Range</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cost Per Enrolled Student</td>
+                  <td>$1,500</td>
+                  <td>$3,000–$5,500</td>
+                  <td>$9,000+</td>
+                  <td>Varies by hours, services, and location</td>
+                </tr>
+                <tr>
+                  <td>Cost Per Participant Hour</td>
+                  <td>$5</td>
+                  <td>$8–$18</td>
+                  <td>$30+</td>
+                  <td>Urban programs tend toward higher end</td>
+                </tr>
+                <tr>
+                  <td>Staffing % of Total Cost</td>
+                  <td>55%</td>
+                  <td>65–75%</td>
+                  <td>85%</td>
+                  <td>School-based programs often higher</td>
+                </tr>
+                <tr>
+                  <td>Staff-to-Student Ratio</td>
+                  <td>1:20</td>
+                  <td>1:10–1:15</td>
+                  <td>1:6</td>
+                  <td>Lower ratio = higher quality, higher cost</td>
+                </tr>
+                <tr>
+                  <td>Admin Overhead Rate</td>
+                  <td>8%</td>
+                  <td>12–18%</td>
+                  <td>25%</td>
+                  <td>Funders often cap at 15–20%</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="references" class="method-section">
+            <h2>References &amp; Resources</h2>
+            <ul class="reference-list">
+              <li>Afterschool Alliance. <em>Afterschool: A Smart Investment for Communities</em>. Washington, DC: Afterschool Alliance, 2023.</li>
+              <li>Little, P. M. D., Wimer, C., &amp; Weiss, H. B. <em>After School Programs in the 21st Century: Their Potential and What It Takes to Achieve It</em>. Harvard Family Research Project, 2008.</li>
+              <li>National Institute on Out-of-School Time (NIOST). <em>Cost Modeling for Quality Out-of-School Time Programs</em>. Wellesley Centers for Women, 2020.</li>
+              <li>U.S. Department of Agriculture. <em>Child and Adult Care Food Program (CACFP) Reimbursement Rates</em>. USDA FNS, 2025.</li>
+              <li>Wallace Foundation. <em>The Cost of Quality After-School Programs</em>. New York: Wallace Foundation, 2016.</li>
+              <li>Yohalem, N., Pittman, K., &amp; Edwards, S. L. <em>Measuring Youth Program Quality: A Guide to Assessment Tools</em>. Forum for Youth Investment, 2010.</li>
+            </ul>
+          </section>
+
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>Afterschool Program Cost Estimator &mdash; Built for program administrators, grantwriters, and policymakers.</p>
+      <p class="footer-note">Cost estimates are projections based on inputs provided. Consult a financial advisor for budget finalization.</p>
+    </div>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

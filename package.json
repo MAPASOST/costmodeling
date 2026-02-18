@@ -1,0 +1,11 @@
+{
+  "name": "afterschool-cost-estimator",
+  "version": "1.0.0",
+  "description": "Afterschool program cost estimator with methodology documentation",
+  "scripts": {
+    "start": "npx serve . --listen 3000",
+    "dev": "npx serve . --listen 3000 --cors"
+  },
+  "keywords": ["afterschool", "cost-modeling", "education", "nonprofit"],
+  "license": "MIT"
+}
