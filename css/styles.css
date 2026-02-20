@@ -320,6 +320,62 @@ main {
 .icon-red     { background: #fef2f2;          color: var(--red-600); }
 .icon-slate   { background: var(--slate-100); color: var(--slate-600); }
 .icon-emerald { background: #ecfdf5;          color: var(--emerald-600); }
+.icon-indigo  { background: #eef2ff;          color: #4338ca; }
+
+/* LOAD FROM MODEL SECTION */
+.model-load-section {
+  border-color: #c7d2fe;
+  background: linear-gradient(135deg, #eef2ff 0%, #f5f3ff 100%);
+}
+
+.btn-load-model {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 9px 18px;
+  background: #4338ca;
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-family: var(--font-sans);
+}
+
+.btn-load-model:hover {
+  background: #3730a3;
+}
+
+.model-load-status {
+  display: block;
+  min-height: 20px;
+  font-size: 0.78rem;
+  color: var(--slate-400);
+  margin-top: 8px;
+}
+
+.model-load-status.success {
+  color: var(--green-600);
+  font-weight: 500;
+}
+
+.model-attribution {
+  margin-top: 10px;
+  font-size: 0.73rem;
+  color: var(--slate-400);
+}
+
+.model-attribution a {
+  color: #4338ca;
+  text-decoration: none;
+}
+
+.model-attribution a:hover {
+  text-decoration: underline;
+}
 
 .section-header h2 {
   color: var(--slate-800);

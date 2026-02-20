@@ -73,6 +73,49 @@
         <!-- LEFT COLUMN: FORM SECTIONS -->
         <div class="form-column">
 
+          <!-- LOAD FROM MODEL -->
+          <section class="form-section model-load-section">
+            <div class="section-header">
+              <div class="section-icon icon-indigo">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+              </div>
+              <h2>Load from CFP Cost Model</h2>
+            </div>
+            <p class="section-note">Pre-fill schedule, enrollment, and staffing fields using the Children's Funding Project example OST cost model. You can still edit any field after loading.</p>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="modelProgramType">Program Type</label>
+                <select id="modelProgramType">
+                  <option value="cbo_afterschool">Community-Based Afterschool</option>
+                  <option value="sb_afterschool">School-Based Afterschool</option>
+                  <option value="cbo_summer">Community-Based Summer</option>
+                  <option value="sb_summer">School-Based Summer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="modelAgeGroup">Age Group</label>
+                <select id="modelAgeGroup">
+                  <option value="k5">K–5th Grade</option>
+                  <option value="ms">6th–8th Grade</option>
+                  <option value="hs">9th–12th Grade</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="modelScenario">Cost Scenario</label>
+                <select id="modelScenario">
+                  <option value="current">Current</option>
+                  <option value="desired">Desired</option>
+                </select>
+              </div>
+            </div>
+            <button class="btn-load-model" onclick="loadFromModel()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Apply Model Defaults
+            </button>
+            <span class="model-load-status" id="modelLoadStatus"></span>
+            <p class="model-attribution">Source: <a href="https://childrensfundingproject.org" target="_blank" rel="noopener">Children's Funding Project</a> &middot; Example OST Cost Model 2026 &middot; <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener">CC BY-NC-ND 4.0</a></p>
+          </section>
+
           <!-- PROGRAM DETAILS -->
           <section class="form-section">
             <div class="section-header">

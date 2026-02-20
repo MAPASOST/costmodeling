@@ -32,6 +32,122 @@ const CATEGORY_LABELS = {
 };
 
 // ============================================================
+// CFP COST MODEL DATA
+// Source: Children's Funding Project — Example OST Cost Model 2026
+// License: CC BY-NC-ND 4.0
+// ============================================================
+const COST_MODEL = {
+  per_seat_annual_costs: {
+    community_based_afterschool: {
+      'K-5th Grade':   { current_cost: 5100, desired_cost: 8100 },
+      '6th-8th Grade': { current_cost: 4800, desired_cost: 7600 },
+      '9th-12th Grade':{ current_cost: 4800, desired_cost: 7500 },
+    },
+    school_based_afterschool: {
+      'K-5th Grade':   { current_cost: 3600, desired_cost: 5900 },
+      '6th-8th Grade': { current_cost: 3200, desired_cost: 5400 },
+      '9th-12th Grade':{ current_cost: 3200, desired_cost: 5400 },
+    },
+    community_based_summer: {
+      'K-5th Grade':   { current_cost: 2200, desired_cost: 4100 },
+      '6th-8th Grade': { current_cost: 3100, desired_cost: 4000 },
+      '9th-12th Grade':{ current_cost: 2400, desired_cost: 3500 },
+    },
+    school_based_summer: {
+      'K-5th Grade':   { current_cost: 1800, desired_cost: 3200 },
+      '6th-8th Grade': { current_cost: 2000, desired_cost: 3200 },
+      '9th-12th Grade':{ current_cost: 1600, desired_cost: 2700 },
+    },
+  },
+  source_inputs: {
+    program_capacity_and_enrollment: {
+      classrooms_groupings: {
+        'K-5th Grade': {
+          current_CBO_after: 2, current_SB_after: 2, current_CBO_summer: 3, current_SB_summer: 3,
+          desired_CBO_after: 2, desired_SB_after: 2, desired_CBO_summer: 3, desired_SB_summer: 3,
+        },
+        '6th-8th Grade': {
+          current_CBO_after: 1, current_SB_after: 2, current_CBO_summer: 1, current_SB_summer: 1,
+          desired_CBO_after: 1, desired_SB_after: 2, desired_CBO_summer: 1, desired_SB_summer: 1,
+        },
+        '9th-12th Grade': {
+          current_CBO_after: 2, current_SB_after: 1, current_CBO_summer: 1, current_SB_summer: 1,
+          desired_CBO_after: 2, desired_SB_after: 1, desired_CBO_summer: 1, desired_SB_summer: 1,
+        },
+      },
+      enrollment_rate_pct: {
+        'K-5th Grade': {
+          current_CBO_after: 0.87, current_SB_after: 0.80, current_CBO_summer: 0.90, current_SB_summer: 0.90,
+          desired_CBO_after: 0.87, desired_SB_after: 0.80, desired_CBO_summer: 0.90, desired_SB_summer: 0.90,
+        },
+        '6th-8th Grade': {
+          current_CBO_after: 0.83, current_SB_after: 0.80, current_CBO_summer: 0.80, current_SB_summer: 0.80,
+          desired_CBO_after: 0.83, desired_SB_after: 0.80, desired_CBO_summer: 0.80, desired_SB_summer: 0.80,
+        },
+        '9th-12th Grade': {
+          current_CBO_after: 0.87, current_SB_after: 0.80, current_CBO_summer: 0.80, current_SB_summer: 0.80,
+          desired_CBO_after: 0.87, desired_SB_after: 0.80, desired_CBO_summer: 0.80, desired_SB_summer: 0.80,
+        },
+      },
+    },
+    annual_program_dosage: {
+      'K-5th Grade': {
+        current_CBO_after:  { hours_per_day: 3, days_per_week: 5, weeks_per_year: 32 },
+        current_SB_after:   { hours_per_day: 3, days_per_week: 4, weeks_per_year: 32 },
+        current_CBO_summer: { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+        current_SB_summer:  { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+        desired_CBO_after:  { hours_per_day: 3, days_per_week: 5, weeks_per_year: 32 },
+        desired_SB_after:   { hours_per_day: 3, days_per_week: 5, weeks_per_year: 32 },
+        desired_CBO_summer: { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+        desired_SB_summer:  { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+      },
+      '6th-8th Grade': {
+        current_CBO_after:  { hours_per_day: 3, days_per_week: 5, weeks_per_year: 32 },
+        current_SB_after:   { hours_per_day: 3, days_per_week: 3, weeks_per_year: 32 },
+        current_CBO_summer: { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+        current_SB_summer:  { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+        desired_CBO_after:  { hours_per_day: 3, days_per_week: 4, weeks_per_year: 32 },
+        desired_SB_after:   { hours_per_day: 3, days_per_week: 5, weeks_per_year: 32 },
+        desired_CBO_summer: { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+        desired_SB_summer:  { hours_per_day: 6, days_per_week: 5, weeks_per_year: 6  },
+      },
+      '9th-12th Grade': {
+        current_CBO_after:  { hours_per_day: 3, days_per_week: 4, weeks_per_year: 32 },
+        current_SB_after:   { hours_per_day: 3, days_per_week: 3, weeks_per_year: 32 },
+        current_CBO_summer: { hours_per_day: 5, days_per_week: 3, weeks_per_year: 4  },
+        current_SB_summer:  { hours_per_day: 5, days_per_week: 3, weeks_per_year: 4  },
+        desired_CBO_after:  { hours_per_day: 3, days_per_week: 4, weeks_per_year: 32 },
+        desired_SB_after:   { hours_per_day: 3, days_per_week: 3, weeks_per_year: 32 },
+        desired_CBO_summer: { hours_per_day: 6, days_per_week: 3, weeks_per_year: 4  },
+        desired_SB_summer:  { hours_per_day: 6, days_per_week: 3, weeks_per_year: 4  },
+      },
+    },
+  },
+  group_sizes_and_ratios: {
+    current_group_sizes: {
+      'K-5th Grade':   { afterschool_CBO: 20, afterschool_SB: 20, summer_CBO: 26, summer_SB: 26 },
+      '6th-8th Grade': { afterschool_CBO: 24, afterschool_SB: 24, summer_CBO: 30, summer_SB: 30 },
+      '9th-12th Grade':{ afterschool_CBO: 24, afterschool_SB: 24, summer_CBO: 30, summer_SB: 30 },
+    },
+    desired_group_sizes: {
+      'K-5th Grade':   { afterschool_CBO: 16, afterschool_SB: 16, summer_CBO: 16, summer_SB: 16 },
+      '6th-8th Grade': { afterschool_CBO: 20, afterschool_SB: 20, summer_CBO: 20, summer_SB: 20 },
+      '9th-12th Grade':{ afterschool_CBO: 20, afterschool_SB: 20, summer_CBO: 20, summer_SB: 20 },
+    },
+    current_adult_to_youth_ratios: {
+      'K-5th Grade':   { afterschool_CBO: '1:10', afterschool_SB: '1:10', summer_CBO: '1:13', summer_SB: '1:13' },
+      '6th-8th Grade': { afterschool_CBO: '1:12', afterschool_SB: '1:12', summer_CBO: '1:15', summer_SB: '1:15' },
+      '9th-12th Grade':{ afterschool_CBO: '1:12', afterschool_SB: '1:12', summer_CBO: '1:15', summer_SB: '1:15' },
+    },
+    desired_adult_to_youth_ratios: {
+      'K-5th Grade':   { afterschool_CBO: '1:8',  afterschool_SB: '1:8',  summer_CBO: '1:8',  summer_SB: '1:8'  },
+      '6th-8th Grade': { afterschool_CBO: '1:10', afterschool_SB: '1:10', summer_CBO: '1:10', summer_SB: '1:10' },
+      '9th-12th Grade':{ afterschool_CBO: '1:10', afterschool_SB: '1:10', summer_CBO: '1:10', summer_SB: '1:10' },
+    },
+  },
+};
+
+// ============================================================
 // UTILITY: FORMAT CURRENCY
 // ============================================================
 function fmt(n, decimals = 0) {
@@ -72,6 +188,97 @@ function val(id) {
 function checked(id) {
   const el = document.getElementById(id);
   return el ? el.checked : false;
+}
+
+// ============================================================
+// UTILITY: SET INPUT VALUE
+// ============================================================
+function setVal(id, value) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.value = value;
+}
+
+// ============================================================
+// LOAD FROM CFP COST MODEL
+// ============================================================
+function loadFromModel() {
+  const ptVal = document.getElementById('modelProgramType').value;
+  const agVal = document.getElementById('modelAgeGroup').value;
+  const scVal = document.getElementById('modelScenario').value;
+
+  const ptConfig = {
+    cbo_afterschool: { dosageSuffix: 'CBO_after',  groupKey: 'afterschool_CBO', seatKey: 'community_based_afterschool', htmlType: 'afterschool', htmlSetting: 'community' },
+    sb_afterschool:  { dosageSuffix: 'SB_after',   groupKey: 'afterschool_SB',  seatKey: 'school_based_afterschool',    htmlType: 'afterschool', htmlSetting: 'school'    },
+    cbo_summer:      { dosageSuffix: 'CBO_summer',  groupKey: 'summer_CBO',      seatKey: 'community_based_summer',      htmlType: 'summer',      htmlSetting: 'community' },
+    sb_summer:       { dosageSuffix: 'SB_summer',   groupKey: 'summer_SB',       seatKey: 'school_based_summer',         htmlType: 'summer',      htmlSetting: 'school'    },
+  };
+
+  const ageGroupMap = {
+    k5: 'K-5th Grade',
+    ms: '6th-8th Grade',
+    hs: '9th-12th Grade',
+  };
+
+  const pt       = ptConfig[ptVal];
+  const ageGroup = ageGroupMap[agVal];
+  const dosageKey = `${scVal}_${pt.dosageSuffix}`;
+
+  // Dosage
+  const dosage = COST_MODEL.source_inputs.annual_program_dosage[ageGroup][dosageKey];
+
+  // Enrollment
+  const cap          = COST_MODEL.source_inputs.program_capacity_and_enrollment;
+  const classrooms   = cap.classrooms_groupings[ageGroup][dosageKey];
+  const enrollRate   = cap.enrollment_rate_pct[ageGroup][dosageKey];
+  const sizeSection  = scVal === 'current' ? 'current_group_sizes' : 'desired_group_sizes';
+  const groupSize    = COST_MODEL.group_sizes_and_ratios[sizeSection][ageGroup][pt.groupKey];
+  const enrolled     = Math.round(classrooms * groupSize * enrollRate);
+  const ada          = Math.round(enrolled * 0.85);
+
+  // Staffing from ratio
+  const ratioSection = scVal === 'current' ? 'current_adult_to_youth_ratios' : 'desired_adult_to_youth_ratios';
+  const ratioStr     = COST_MODEL.group_sizes_and_ratios[ratioSection][ageGroup][pt.groupKey];
+  const ratioNum     = parseInt(ratioStr.split(':')[1], 10);
+  const numStaff     = Math.ceil(groupSize / ratioNum) * classrooms;
+
+  // Apply values
+  setVal('programType',      pt.htmlType);
+  setVal('settingType',      pt.htmlSetting);
+  setVal('hoursPerDay',      dosage.hours_per_day);
+  setVal('daysPerWeek',      dosage.days_per_week);
+  setVal('weeksPerYear',     dosage.weeks_per_year);
+  setVal('studentsEnrolled', enrolled);
+  setVal('avgDailyAttendance', ada);
+  setVal('numStaff',         numStaff);
+  setVal('numDirectors',     1);
+  setVal('staffHoursPerDay', dosage.hours_per_day + 1);
+  setVal('benefitsRate',     14);
+
+  // School-based → facility in-kind
+  const facilityFreeEl = document.getElementById('facilityFree');
+  const facilityGrid   = document.getElementById('facilityGrid');
+  if (facilityFreeEl && facilityGrid) {
+    const isSB = pt.htmlSetting === 'school';
+    facilityFreeEl.checked           = isSB;
+    facilityGrid.style.opacity       = isSB ? '0.35' : '1';
+    facilityGrid.style.pointerEvents = isSB ? 'none' : 'auto';
+  }
+
+  updateUI();
+
+  // Status message with CFP reference per-seat cost
+  const seatData = COST_MODEL.per_seat_annual_costs[pt.seatKey][ageGroup];
+  const refCost  = scVal === 'current' ? seatData.current_cost : seatData.desired_cost;
+  const statusEl = document.getElementById('modelLoadStatus');
+  if (statusEl) {
+    statusEl.textContent = `Defaults loaded \u2713  CFP reference: ${fmt(refCost)}/seat/year`;
+    statusEl.className   = 'model-load-status success';
+    setTimeout(() => {
+      statusEl.textContent = '';
+      statusEl.className   = 'model-load-status';
+    }, 5000);
+  }
 }
 
 // ============================================================
